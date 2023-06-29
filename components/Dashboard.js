@@ -190,11 +190,12 @@ function Dashboard() {
       const { ethereum } = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
+        const network = await provider.getNetwork();
         const signer = provider.getSigner();
         const account = await signer.getAddress();
 
         const sf = await Framework.create({
-          chainId: 5,
+          chainId: network.chainId,
           provider: provider,
         });
 
