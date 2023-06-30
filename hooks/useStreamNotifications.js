@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import {toast} from "react-toastify";
 import { bridgeDataConfig } from "@/data/config";
 
 const Web3 = require("web3");
@@ -23,7 +24,7 @@ export const useStreamNotifications = () => {
         if(!bridgeDataConfig[network.chainId]) {
           toast("Unsupported Network")
         }
-        const destinationAddress = bridgeDataConfig[network.chainId].xstreamContractAddress;
+        const destinationAddress = bridgeDataConfig[network.chainId]?.xstreamContractAddress;
         abiDecoder.addABI(destinationAbi);
 
         const options = { address: destinationAddress };
@@ -35,10 +36,10 @@ export const useStreamNotifications = () => {
             else console.log(error);
           })
           .on("data", async function (log) {
-            const decodedLogs = abiDecoder.decodeLogs([log]);
+            const decodedLogs = abiDecoder?.decodeLogs([log]);
             let eventName = decodedLogs[0]?.name;
             let destinationAddress = decodedLogs[0]?.address;
-            let destinationLogs = decodedLogs[0].events;
+            let destinationLogs = decodedLogs[0]?.events;
             const eventNotification = {
               eventName: eventName,
               contractAddress: destinationAddress,

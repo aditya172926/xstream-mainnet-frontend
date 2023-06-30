@@ -31,7 +31,7 @@ function reducer(state, action) {
 }
 
 export const StreamsProvider = ({ children }) => {
-  const { state, dispatch } = useReducer(reducer, intialState);
+  const [ state, dispatch ] = useReducer(reducer, intialState);
   return (
     <StreamsContext.Provider
       value={{

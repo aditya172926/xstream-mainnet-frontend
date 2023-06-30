@@ -6,7 +6,7 @@ import { useStreams, useShowDashboard, useNotifications } from "@/hooks";
 export const SideBar = () => {
   const { showDashboard, setDashboard } = useShowDashboard();
   const { showXStream, setSendStream, setShowXStream } = useStreams();
-  const { showNotification, setShowNotification } = useNotifications();
+  const { showNotifications, setShowNotifications } = useNotifications();
 
   return (
     <div className="min-h-screen w-[300px] border-r-[1px] py-2 px-4 bg-white pt-[100px]">
@@ -21,7 +21,7 @@ export const SideBar = () => {
           onClick={() => {
             setDashboard(true);
             setSendStream(false);
-            setShowNotification(false);
+            setShowNotifications(false);
             setShowXStream(false);
           }}
         >
@@ -50,7 +50,7 @@ export const SideBar = () => {
                     onClick={() => {
                         setDashboard(false);
                         setSendStream(true);
-                        setShowNotification(false);
+                        setShowNotifications(false);
                         setShowXStream(false);
                     }}
                 >
@@ -78,7 +78,7 @@ export const SideBar = () => {
             setDashboard(false);
             setSendStream(false);
             setShowXStream(true);
-            setShowNotification(false);
+            setShowNotifications(false);
           }}
         >
           <div className={styles.link_icon}>
@@ -98,14 +98,14 @@ export const SideBar = () => {
 
         <div
           className={
-            showNotification
+            showNotifications
               ? `${styles.left_ul_link} ${styles.active}`
               : `${styles.left_ul_link}`
           }
           onClick={() => {
             setDashboard(false);
             setSendStream(false);
-            setShowNotification(true);
+            setShowNotifications(true);
             // setShowStream(true);
             setShowXStream(false);
           }}
