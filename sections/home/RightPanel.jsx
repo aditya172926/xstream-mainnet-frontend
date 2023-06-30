@@ -10,13 +10,13 @@ import {
   useShowDashboard,
   useStreams,
   useNotifications,
+  useRoutes,
 } from "@/hooks";
 
 export const RightPanel = () => {
   const { streamNotifications } = useStreamNotifications();
-  const { showDashboard } = useShowDashboard();
-  const { showSendStream, showXStream } = useStreams();
-  const { showNotification } = useNotifications();
+  const {showDashboard, showSendStream, showXStream, showNotifications} = useRoutes();
+
   return (
     <div className="w-full bg-[#F4F4F4]">
       <div className="inside-main-right">
@@ -26,7 +26,7 @@ export const RightPanel = () => {
           <SendStream />
         ) : showXStream ? (
           <SendXStream />
-        ) : showNotification ? (
+        ) : showNotifications ? (
           <Notifications notifications={streamNotifications} />
         ) : null}
       </div>

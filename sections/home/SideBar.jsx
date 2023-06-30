@@ -1,12 +1,18 @@
 import React from "react";
 import ConnectWalletCustom from "../../components/ConnectWalletCustom";
 import styles from "@/styles/Home.module.css";
-import { useStreams, useShowDashboard, useNotifications } from "@/hooks";
+import { useRoutes } from "@/hooks";
 
 export const SideBar = () => {
-  const { showDashboard, setDashboard } = useShowDashboard();
-  const { showXStream, setSendStream, setShowXStream } = useStreams();
-  const { showNotifications, setShowNotifications } = useNotifications();
+  const {
+    showDashboard,
+    setDashboard,
+    showXStream,
+    setSendStream,
+    setShowXStream,
+    showNotifications,
+    setShowNotifications,
+  } = useRoutes();
 
   return (
     <div className="min-h-screen w-[300px] border-r-[1px] py-2 px-4 bg-white pt-[100px]">
@@ -19,10 +25,7 @@ export const SideBar = () => {
               : `${styles.left_ul_link}`
           }
           onClick={() => {
-            setDashboard(true);
-            setSendStream(false);
-            setShowNotifications(false);
-            setShowXStream(false);
+            setDashboard();
           }}
         >
           <div className={styles.link_icon}>
@@ -75,10 +78,7 @@ export const SideBar = () => {
               : `${styles.left_ul_link}`
           }
           onClick={() => {
-            setDashboard(false);
-            setSendStream(false);
-            setShowXStream(true);
-            setShowNotifications(false);
+            setShowXStream();
           }}
         >
           <div className={styles.link_icon}>
@@ -103,11 +103,7 @@ export const SideBar = () => {
               : `${styles.left_ul_link}`
           }
           onClick={() => {
-            setDashboard(false);
-            setSendStream(false);
-            setShowNotifications(true);
-            // setShowStream(true);
-            setShowXStream(false);
+            setShowNotifications();
           }}
         >
           <div className={styles.link_icon}>

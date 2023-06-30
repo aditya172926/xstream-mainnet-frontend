@@ -1,9 +1,8 @@
 import React from "react";
-import { NotificationsProvider } from "./NotificationsProvider";
 import { WagmiConfig } from "wagmi";
 import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { wagmiClient, chains } from "@/lib/wagmi";
-import { StreamsProvider } from "./StreamsProvider";
+import { RoutesProvider } from "./RoutesProvider";
 
 const Providers = ({ children }) => {
   return (
@@ -18,9 +17,9 @@ const Providers = ({ children }) => {
           overlayBlur: "small",
         })}
       >
-        <StreamsProvider>
-          <NotificationsProvider>{children}</NotificationsProvider>
-        </StreamsProvider>
+        <RoutesProvider>
+        {children}
+        </RoutesProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );
