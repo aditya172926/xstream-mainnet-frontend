@@ -3,19 +3,19 @@ import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { createClient } from "urql";
 import { getTransactionDescription } from "@superfluid-finance/sdk-core";
-import ConnectWalletCustom from "./ConnectWalletCustom";
-import gif from "../public/stream-loop.gif";
-import avatar1 from "../public/avatar-image.gif";
-import avatar2 from "../public/avatar2.png";
-import avatar3 from "../public/avatar3.png";
-import avatar4 from "../public/avatar4.png";
+import ConnectWalletCustom from "../ConnectWalletCustom";
+import gif from "../../public/stream-loop.gif";
+import avatar1 from "../../public/avatar-image.gif";
+import avatar2 from "../../public/avatar2.png";
+import avatar3 from "../../public/avatar3.png";
+import avatar4 from "../../public/avatar4.png";
 
 import Image from "next/image";
 
 import { sign } from "crypto";
 import { ethers } from "ethers";
 import { Framework } from "@superfluid-finance/sdk-core";
-import ChainSelect from "./ChainSelect";
+import ChainSelect from "../ChainSelect";
 
 function Dashboard() {
   const { address, isConnected } = useAccount();
@@ -23,12 +23,10 @@ function Dashboard() {
   const [dropDown, setDropDown] = useState(true);
   const [chain, setChain] = useState("goerli");
 
-
+  // USESTATE
   const [dropDownAll, setDropDownAll] = useState(true);
   const [dropDownIncoming, setDropDownIncoming] = useState(true);
   const [dropDownOutgoing, setDropDownOutgoing] = useState(true);
-
-  //integration
   const [allData, setAllData] = useState([]);
   const [incomingData, setIncomingData] = useState([]);
   const [outgoingData, setOutgoingData] = useState([]);
@@ -49,16 +47,14 @@ function Dashboard() {
     "Dec",
   ];
 
-  console.log(chain)
-
+  // console.log(chain)
 
   const loadData = async () => {
     if (!address) {
       console.log("false");
       return;
     }
-    
-    // const APIURL = `https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-mumbai`;
+
     const APIURL = `https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-${chain}`;
 
     const tokensQuery_outgoing = `
@@ -98,6 +94,7 @@ function Dashboard() {
     const client = createClient({
       url: APIURL,
     });
+
     const loadedData_outgoing = await client
       .query(tokensQuery_outgoing)
       .toPromise();
@@ -117,9 +114,6 @@ function Dashboard() {
 
     data.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
     data1.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
-    // Array.prototype.push.apply(data2, data1);
-    // data2.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
-    // console.log(data2);
 
     for (let i = 0; i < data.length; i++) {
       if (!outgoingData.find((item) => loadedData_outgoing[0] === item[0])) {
@@ -179,10 +173,6 @@ function Dashboard() {
     setOutgoingData(outgoingData);
     setIncomingData(incomingData);
     setAllData(allData);
-
-    // console.log(outgoingData);
-    // console.log(incomingData);
-    // console.log(allData);
   };
 
   const getBalance = async () => {
@@ -198,7 +188,9 @@ function Dashboard() {
           provider: provider,
         });
 
-        const DAIxContract = await sf.loadSuperToken("0x3427910EBBdABAD8e02823DFe05D34a65564b1a0");
+        const DAIxContract = await sf.loadSuperToken(
+          "0x3427910EBBdABAD8e02823DFe05D34a65564b1a0"
+        );
         const DAIx = DAIxContract.address;
 
         try {
@@ -223,24 +215,18 @@ function Dashboard() {
     setDropDownOutgoing(false);
   }, []);
 
-
   useEffect(() => {
     getBalance();
     loadData();
-  }, [address, chain])
+  }, [address, chain]);
 
   if (isConnected) {
     return (
       <div className="main-container w-full h-screen ">
         <ChainSelect chain={chain} setChain={setChain} />
         <div className="max-w-6xl mx-auto mt-10 rounded-2xl bg-white w-full ">
-          {/* <button onClick={() => loadData()}>click</button> */}
-          {/* <p>Connect your wallet, view any wallet, or take a look around!</p> */}
           <div className="db-box-parent">
-            {/* <h1 className="super-token">"Super Token"</h1> */}
-
             <div className="db-box bg-white rounded-lg">
-
               <div className="token-details pt-4">
                 <table>
                   <thead>
@@ -326,7 +312,7 @@ function Dashboard() {
                                 alt="TESTx token icon"
                                 src="https://raw.githubusercontent.com/superfluid-finance/assets/master/public//tokens/dai/icon.svg"
                                 class="MuiAvatar-img avatar-token"
-                              ></img>
+                              />
                             </div>
                           </div>
                           <h4 className="fdaix">TESTx</h4>
@@ -373,9 +359,7 @@ function Dashboard() {
                                   <div className="dropdown-row">
                                     <div className="dropdown-btn-parent">
                                       <button
-                                        className={
-                                          dropDownAll ? "active" : ""
-                                        }
+                                        className={dropDownAll ? "active" : ""}
                                         onClick={() => {
                                           setDropDownAll(true);
                                           setDropDownIncoming(false);
@@ -429,79 +413,80 @@ function Dashboard() {
                             </thead>
                             <tbody>
                               {/**************all flow data************/}
-                              {dropDownAll && allData?.map((item, key) => {
-                                return (
-                                  <tr key={key}>
-                                    <td>
-                                      {item[4] ? (
-                                        <h6>
-                                          -&gt;&nbsp;{item[0].slice(0, 5)}
-                                          ...
-                                          {item[0].slice(38, 42)}
-                                        </h6>
-                                      ) : (
-                                        <h6>
-                                          &lt;-&nbsp;{item[0].slice(0, 5)}
-                                          ...
-                                          {item[0].slice(38, 42)}
-                                        </h6>
-                                      )}
-                                    </td>
-                                    <td>{item[2]}</td>
-                                    <td>-</td>
-                                    <td>
-                                      {item[1].slice(0, 5)}...
-                                      {item[1].slice(38, 42)}
-                                    </td>
-                                    <td>{item[3]}</td>
-                                  </tr>
-                                );
-                              })}
+                              {dropDownAll &&
+                                allData?.map((item, key) => {
+                                  return (
+                                    <tr key={key}>
+                                      <td>
+                                        {item[4] ? (
+                                          <h6>
+                                            -&gt;&nbsp;{item[0].slice(0, 5)}
+                                            ...
+                                            {item[0].slice(38, 42)}
+                                          </h6>
+                                        ) : (
+                                          <h6>
+                                            &lt;-&nbsp;{item[0].slice(0, 5)}
+                                            ...
+                                            {item[0].slice(38, 42)}
+                                          </h6>
+                                        )}
+                                      </td>
+                                      <td>{item[2]}</td>
+                                      <td>-</td>
+                                      <td>
+                                        {item[1].slice(0, 5)}...
+                                        {item[1].slice(38, 42)}
+                                      </td>
+                                      <td>{item[3]}</td>
+                                    </tr>
+                                  );
+                                })}
                               {/**************outgoing flow data************/}
-                              {dropDownOutgoing && outgoingData?.map((item, key) => {
-                                return (
-                                  <tr key={key}>
-                                    <td>
-                                      -&gt;&nbsp;
-                                      {item[1].slice(0, 5)}...
-                                      {item[1].slice(38, 42)}
-                                    </td>
-                                    <td>{item[3]}</td>
-                                    <td>-</td>
-                                    <td>
-                                      {item[2].slice(0, 5)}...
-                                      {item[2].slice(38, 42)}
-                                    </td>
-                                    <td>{item[4]}</td>
-                                  </tr>
-                                );
-                              })}
+                              {dropDownOutgoing &&
+                                outgoingData?.map((item, key) => {
+                                  return (
+                                    <tr key={key}>
+                                      <td>
+                                        -&gt;&nbsp;
+                                        {item[1].slice(0, 5)}...
+                                        {item[1].slice(38, 42)}
+                                      </td>
+                                      <td>{item[3]}</td>
+                                      <td>-</td>
+                                      <td>
+                                        {item[2].slice(0, 5)}...
+                                        {item[2].slice(38, 42)}
+                                      </td>
+                                      <td>{item[4]}</td>
+                                    </tr>
+                                  );
+                                })}
                               {/**************incoming flow data************/}
-                              {dropDownIncoming && incomingData?.map((item, key) => {
-                                return (
-                                  <tr key={key}>
-                                    <td>
-                                      &lt;-&nbsp;
-                                      {item[0].slice(0, 5)}...
-                                      {item[0].slice(38, 42)}
-                                    </td>
-                                    <td>{item[3]}</td>
-                                    <td>-</td>
-                                    <td>
-                                      {item[2].slice(0, 5)}...
-                                      {item[2].slice(38, 42)}
-                                    </td>
-                                    <td>{item[4]}</td>
-                                  </tr>
-                                );
-                              })}
-
+                              {dropDownIncoming &&
+                                incomingData?.map((item, key) => {
+                                  return (
+                                    <tr key={key}>
+                                      <td>
+                                        &lt;-&nbsp;
+                                        {item[0].slice(0, 5)}...
+                                        {item[0].slice(38, 42)}
+                                      </td>
+                                      <td>{item[3]}</td>
+                                      <td>-</td>
+                                      <td>
+                                        {item[2].slice(0, 5)}...
+                                        {item[2].slice(38, 42)}
+                                      </td>
+                                      <td>{item[4]}</td>
+                                    </tr>
+                                  );
+                                })}
                             </tbody>
                           </table>
                         </div>
                       </td>
                     </tr>
-
                   </tbody>
                 </table>
               </div>
@@ -519,7 +504,9 @@ function Dashboard() {
         <div className="db-grid-sub w-[70%] mx-auto my-0">
           <div className="grid-sub min-h-[170px]">
             <span className="grid-sub-title">Controll Your Stream</span>
-            <span className="grid-sub-info">Controll stream on a crosschain level</span>
+            <span className="grid-sub-info">
+              Controll stream on a crosschain level
+            </span>
             <div className="flex items-center justify-center mt-4">
               <div className="shadow-[#cccccc40] shadow-[0px_0px_6px_3px_rgb(204,204,204,0.25)] flex items-center justify-between w-30 px-1 py-1 rounded-xl">
                 <Image
@@ -755,3 +742,23 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+// UNWANDTED CODE
+{
+  /* <button onClick={() => loadData()}>click</button> */
+}
+{
+  /* <p>Connect your wallet, view any wallet, or take a look around!</p> */
+}
+
+{
+  /* <h1 className="super-token">"Super Token"</h1> */
+}
+// const APIURL = `https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-mumbai`;
+
+// Array.prototype.push.apply(data2, data1);
+// data2.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
+// console.log(data2);
+// console.log(outgoingData);
+// console.log(incomingData);
+// console.log(allData);

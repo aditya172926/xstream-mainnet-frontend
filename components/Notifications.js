@@ -3,9 +3,11 @@ import React, { Component, useEffect } from 'react'
 
 export default function Notifications(props) {
 
+
+    // Fetch Notifications ? 
     useEffect(() => {
         if (props.address) {
-            fetchNotifications();
+            // fetchNotifications();
         }
     }, []);
 

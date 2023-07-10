@@ -4,7 +4,7 @@ import Blockies from "react-blockies";
 
 function ConnectWalletCustom() {
   return (
-    <div className="font-poppins"> 
+    <div className="font-poppins">
       <ConnectButton.Custom>
         {({
           account,
@@ -147,7 +147,15 @@ function ConnectWalletCustom() {
           );
         }}
       </ConnectButton.Custom>
-      {/* {openConnectModal && (
+    </div>
+  );
+}
+
+export default ConnectWalletCustom;
+
+// ALREADY COMMENTED CODE
+{
+  /* {openConnectModal && (
         <button onClick={openConnectModal} type="button">
           Open Connect Modal
         </button>
@@ -157,14 +165,18 @@ function ConnectWalletCustom() {
         <button onClick={openAccountModal} type="button">
           Open Account Modal
         </button>
-      )} */}
+      )} */
+}
 
-      {/* {openChainModal && (
+{
+  /* {openChainModal && (
         <button onClick={openChainModal} type="button">
           Open Chain Modal
         </button>
-      )} */}
-      {/* {openConnectModal ? (
+      )} */
+}
+{
+  /* {openConnectModal ? (
         <button onClick={openConnectModal} type="button">
           Open Connect Modal
         </button>
@@ -172,9 +184,5 @@ function ConnectWalletCustom() {
         <button onClick={openAccountModal} type="button">
           Open Account Modal
         </button>
-      ) : null} */}
-    </div>
-  );
+      ) : null} */
 }
-
-export default ConnectWalletCustom;

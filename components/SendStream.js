@@ -11,6 +11,8 @@ function SendStream() {
 
   //integration
   const sendStreamWithOperator = async () => {
+
+    // 
     const senderAddress = document.getElementById("senderWalletAddress").value;
     const receiverAddress = document.getElementById(
       "receiverWalletAddress"

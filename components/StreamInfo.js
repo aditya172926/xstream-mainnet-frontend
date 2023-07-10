@@ -10,6 +10,8 @@ const StreamInfo = ({
   token,
   endDate,
 }) => {
+
+  // FUNCTIONS
   const calculateFlowRate = (amountInEther) => {
     const now = new Date();
     const endD = new Date(endDate);
