@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-import logo from "../image/Logo.png";
-import logowhite from "../image/LogoWhite.png";
+// import logo from "../image/Logo.png";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,15 +19,13 @@ import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet, polygon, polygonMumbai, optimism, arbitrum, goerli } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Dashboard from "../components/Dashboard";
 import SendStream from "../components/SendStream";
-import Image from "next/image";
 import SideBar from "../components/SideBar";
 import SendXStream from "../components/SendXStream";
 import Stream from "../components/Stream";
 import Notifications from "../components/Notifications";
+import Navbar from "@/components/Navbar";
 
 //******************************************* */
 
@@ -161,26 +158,7 @@ export default function Home() {
           </Head>
           <main className="main font-poppins">
             {/* ******************** Navbar ******************** */}
-
-            <div className="navbar flex justify-between p-2 items-center absolute w-full px-4 z-10">
-              <div className="navbar-logo flex-auto w-64  py-4 px-3">
-                {/* //logo  */}
-                <Image src={logowhite} alt="logo" height={40} />
-              </div>
-              <div className="connect-wallet">
-                <ConnectButton
-                  accountStatus={{
-                    smallScreen: "avatar",
-                    largeScreen: "full",
-                  }}
-                  showBalance={{
-                    smallScreen: false,
-                    largeScreen: true,
-                  }}
-                />
-              </div>
-            </div>
-
+            <Navbar />
             {/* ******************** main ******************** */}
 
             <div className="flex  min-h-screen">
