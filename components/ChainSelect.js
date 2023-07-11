@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 export default function ChainSelect({ chain, setChain }) {
+
+    const btnStyle = 'py-[20px] px-[30px] gap-2.5  flex justify-center items-center font-medium pl-[30px] pr-[30px] w-[158px] rounded-[10px] text-[rgba(70,70,70,0.5)]'
     return (
         <div className='w-full max-w-6xl  mx-auto'>
             <div
@@ -14,7 +16,7 @@ export default function ChainSelect({ chain, setChain }) {
                 </button> */}
                 <button
                     onClick={() => setChain("goerli")}
-                    className={`py-[20px] px-[30px] gap-2.5  flex justify-center items-center font-medium pl-[30px] pr-[30px] w-[177px] rounded-[10px] text-[rgba(70,70,70,0.5)] ${chain == "goerli" ? "bg-white" : ""}`}
+                    className={`${btnStyle} ${chain == "goerli" ? "bg-white" : ""}`}
                 >
                     <p className=" m-0 leading-[19.530521392822266px]">
                         Goerli
@@ -22,7 +24,7 @@ export default function ChainSelect({ chain, setChain }) {
                 </button>
                 <button
                     onClick={() => setChain("mumbai")}
-                    className={`${chain == "mumbai" ? "bg-white" : ""} py-[20px] px-[30px] gap-2.5  flex justify-center items-center font-medium pl-[30px] pr-[30px] w-[158px] rounded-[10px] text-[rgba(70,70,70,0.5)]`}
+                    className={`${chain == "mumbai" ? "bg-white" : ""} ${btnStyle}`}
                 >
                     <p className=" m-0 leading-[19.530521392822266px]">
                         Mumbai
@@ -30,7 +32,7 @@ export default function ChainSelect({ chain, setChain }) {
                 </button>
                 <button
                     onClick={() => setChain("optimism")}
-                    className={`${chain == "optimism" ? "bg-white" : ""} py-[20px] px-[30px] gap-2.5  flex justify-center items-center font-medium pl-[30px] pr-[30px] w-[180px] rounded-[10px] text-[rgba(70,70,70,0.5)]`}
+                    className={`${chain == "optimism" ? "bg-white" : ""} ${btnStyle}`}
                 >
                     <p className=" m-0 leading-[19.530521392822266px]">
                         Optimism
@@ -38,7 +40,7 @@ export default function ChainSelect({ chain, setChain }) {
                 </button>
                 <button
                     onClick={() => setChain("arbitrum")}
-                    className={`${chain == "arbitrum" ? "bg-white" : ""} py-[20px] px-[30px] gap-2.5  flex justify-center items-center font-medium pl-[30px] pr-[30px] w-[168px] rounded-[10px] text-[rgba(70,70,70,0.5)]`}
+                    className={`${chain == "arbitrum" ? "bg-white" : ""} ${btnStyle}`}
                 >
                     <p className=" m-0 leading-[19.530521392822266px]">
                         Arbitrum
@@ -46,7 +48,7 @@ export default function ChainSelect({ chain, setChain }) {
                 </button>
                 <button
                     onClick={() => setChain("avalanche")}
-                    className={`${chain == "avalanche" ? "bg-white" : ""} py-[20px] px-[30px] gap-2.5  flex justify-center items-center font-medium pl-[30px] pr-[30px] w-[215px] rounded-[10px] text-[rgba(70,70,70,0.5)]`}
+                    className={`${chain == "avalanche" ? "bg-white" : ""} ${btnStyle}`}
                 >
                     <p className=" m-0 leading-[19.530521392822266px]">
                         Avalanche C
