@@ -1,19 +1,13 @@
 import React from 'react'
 import ConnectWalletCustom from './ConnectWalletCustom';
 import styles from "../styles/Home.module.css";
+import { useAppContext } from '@/context/AppContext';
 
-const SideBar = ({
-    setDashboard,
-    setSendStream,
-    setShowNotification,
-    showDashboard,
-    showSendStream,
-    showNotification,
-    setShowXStream,
-    showXStream,
-    setShowStream,
-    showStream,
-}) => {
+
+const SideBar = () => {
+
+    const {showSendStream,setShowStream,showStream,setDashboard,setSendStream,setShowNotification,showDashboard,showNotification,setShowXStream,showXStream,} = useAppContext()
+
     return (
         <div className="min-h-screen w-[300px] border-r-[1px] py-2 px-4 bg-white pt-[100px]">
             <ConnectWalletCustom />

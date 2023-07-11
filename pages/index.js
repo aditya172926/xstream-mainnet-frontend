@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // import logo from "../image/Logo.png";
 
@@ -15,7 +15,7 @@ import {
   lightTheme,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
- 
+
 import { mainnet, polygon, polygonMumbai, optimism, arbitrum, goerli } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -26,6 +26,7 @@ import SendXStream from "../components/SendXStream";
 import Stream from "../components/Stream";
 import Notifications from "../components/Notifications";
 import Navbar from "@/components/Navbar";
+import { useAppContext } from "@/context/AppContext";
 
 //******************************************* */
 
@@ -58,7 +59,7 @@ export default function Home() {
     provider,
   });
 
-  const [streamNotifications, setStreamNotifications] = useState([]);
+  const {showDashboard, setDashboard, showSendStream, showXStream, showNotification,streamNotifications,setStreamNotifications} = useAppContext();
 
   useEffect(() => {
     const run = async () => {
@@ -120,12 +121,6 @@ export default function Home() {
 
   //********************** connect wallet imports
 
-  const [showDashboard, setDashboard] = useState(false);
-  const [showSendStream, setSendStream] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
-  const [showXStream, setShowXStream] = useState(false);
-  const [showStream, setShowStream] = useState(false);
-
   useEffect(() => {
     setDashboard(true);
   }, []);
@@ -163,18 +158,7 @@ export default function Home() {
 
             <div className="flex  min-h-screen">
               {/* ****************main left panel************** */}
-              <SideBar
-                setDashboard={setDashboard}
-                setSendStream={setSendStream}
-                setShowNotification={setShowNotification}
-                setShowXStream={setShowXStream}
-                showXStream={showXStream}
-                showDashboard={showDashboard}
-                showSendStream={showSendStream}
-                showNotification={showNotification}
-                setShowStream={setShowStream}
-                showStream={showStream}
-              />
+              <SideBar />
 
 
               {/* ****************main right panel************** */}
@@ -187,15 +171,13 @@ export default function Home() {
                   ) : showXStream ? (
                     <SendXStream />
                   ) : showNotification ?
-                    <Notifications notifications={streamNotifications} />
+                    <Notifications />
                     : null
                   }
 
                 </div>
               </div>
             </div>
-
-
           </main>
           <ToastContainer
             position="top-right"

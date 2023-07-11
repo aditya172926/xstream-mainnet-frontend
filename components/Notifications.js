@@ -1,13 +1,17 @@
+import { useAppContext } from '@/context/AppContext';
 import { ethers } from 'ethers';
 import React, { Component, useEffect } from 'react'
 
 export default function Notifications(props) {
 
+    
     useEffect(() => {
         if (props.address) {
             fetchNotifications();
         }
     }, []);
+    
+    const {streamNotifications} = useAppContext()
 
     return (
         <div className="main-container w-full h-screen">
@@ -65,7 +69,7 @@ export default function Notifications(props) {
                     <div
                         className="py-5 bg-white flex flex-col justify-center items-center pl-[11px] pr-[11px] gap-[9.78px] rounded-[9.78px]"
                     >
-                        {props.notifications.map((data, item) => {
+                        {streamNotifications?.map((data, item) => {
                             return (
                                 <div key={item} className="relative w-[1064.48px] h-[48.92px]">
                                     <div className="text-left">

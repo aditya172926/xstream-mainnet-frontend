@@ -240,7 +240,7 @@ const SendXStream = () => {
             <DropSelect
               selected={token}
               setSelected={setToken}
-              options={bridgeDataConfig[chain?.id].acceptedTokens}
+              options={bridgeDataConfig[chain?.id]?.acceptedTokens}
               placeholder={"Select a token"}
             />
             <DatePicker selected={endDate} setSelected={setEndDate} />
